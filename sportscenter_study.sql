@@ -80,6 +80,8 @@ VALUES (2, '헬스 자유이용', '자유', '매일', '06:00', 50, 50000);
 INSERT INTO courses (sports_id, course_name, level, class_days, start_time, capacity, fee)
 VALUES (30, '헬스 자유이용', '자유', '매일', '06:00', 50, 50000);
 
+DROP TABLE IF EXISTS lockers;
+
 -- 1:1 사물함 테이블
 CREATE TABLE lockers
 (
@@ -88,3 +90,17 @@ CREATE TABLE lockers
     asign_date  DATE    NOT NULL
 );
 
+INSERT INTO lockers VALUES (101, 1, '2026-11-01');
+
+-- 삭제 테스트를 위한 임시 회원 추가
+INSERT INTO members (name, gender, birth_year, join_date)
+VALUES ('임시회원', 'M', 2000, '2026-11-01');
+
+-- 임시 회원의 락커 배정
+INSERT INTO lockers VALUES (102, 3, '2026-11-01');
+
+-- 회원 삭제 시 사물함도 함께 삭제되는지 확인
+DELETE FROM members WHERE member_id = 3;
+
+-- 사물함이 삭제되었는지 확인
+SELECT * FROM lockers; 
