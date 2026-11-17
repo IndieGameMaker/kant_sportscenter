@@ -104,3 +104,23 @@ DELETE FROM members WHERE member_id = 3;
 
 -- 사물함이 삭제되었는지 확인
 SELECT * FROM lockers; 
+
+-- 수강 신청 테이블
+CREATE TABLE enrollments
+(
+    member_id       INT             NOT NULL REFERENCES members (member_id),
+    course_id       INT             NOT NULL REFERENCES courses (course_id),
+    enroll_month    CHAR(7)         NOT NULL,
+    status          VARCHAR(10)     NOT NULL,
+    pay_amount      NUMERIC(10,2)   NOT NULL CHECK (pay_amount >=0),
+    PRIMARY KEY (member_id, course_id, enroll_month)
+);
+
+INSERT INTO enrollments 
+VALUES (1, 1, '2026-11', '수료', 50000);
+
+INSERT INTO enrollments 
+VALUES (2, 2, '2026-10', '수료', 70000);
+
+INSERT INTO enrollments 
+VALUES (2, 2, '2026-10', '수료', 60000);
