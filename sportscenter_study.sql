@@ -323,6 +323,6 @@ ORDER BY paid.total_paid DESC, paid.member_id;
 SELECT 
     course_name,
     fee,
-    ROUND((SELECT AVG(fee) FROM courses), 2)        AS 전체평균
+    ROUND((SELECT AVG(fee) FROM courses), 2)        AS 전체평균  ,
     fee - ROUND((SELECT AVG(fee) FROM courses), 2)  AS 평균과차이
 FROM courses;
