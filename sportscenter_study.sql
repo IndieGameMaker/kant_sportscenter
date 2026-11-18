@@ -247,5 +247,33 @@ ORDER BY 누적신청 DESC, course_id;
 -- 출력 : 거주지, 해당거주지회원수 
 -- 조건 : 해당 거주지 회원수 10명 이상인 경우
 
+SELECT region, COUNT(*) AS 회원수
+FROM members
+GROUP BY region
+HAVING COUNT(*) >= 10
+ORDER BY 회원수 DESC;
 
+-- UNION / UNIIO ALL
 
+SELECT member_id FROM enrollments WHERE course_id = 4 AND enroll_month = '2026-09'
+UNION
+SELECT member_id FROM enrollments WHERE course_id = 4 AND enroll_month = '2026-10'
+UNION
+SELECT member_id FROM enrollments WHERE course_id = 4 AND enroll_month = '2026-11'
+ORDER BY member_id;
+
+SELECT '강사' AS 구분, name, phone FROM instructors WHERE sport_id = 4
+UNION ALL
+SELECT '회원' AS 구분, name, phone FROM members WHERE region = '영등포구';
+
+SELECT
+    e.member_id,
+    m.name,
+    c.course_name,
+    e.enroll_month,
+    e.status
+FROM enrollments e
+LEFT JOIN members m ON e.member_id = m.member_id
+LEFT JOIN courses c ON e.course_id = c.course_id
+WHERE e.course_id = 6 AND e.enroll_month = '2026-11'
+ORDER BY m.name;
