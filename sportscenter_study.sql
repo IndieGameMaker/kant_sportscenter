@@ -171,3 +171,60 @@ SELECT * FROM courses WHERE course_id IN (1, 5, 10);
 
 SELECT * FROM members WHERE name LIKE '이%';
 
+SELECT course_name, level, start_time 
+FROM courses
+WHERE sport_id = 1
+AND (level = '초급' AND start_time < '09:00');
+
+SELECT name, birth_year,
+       CASE WHEN birth_year <= 1960 THEN '할인'
+            WHEN birth_year >= 2000 THEN '청소년'
+            ELSE '일반'
+       END AS 요금구분
+FROM members
+ORDER BY birth_year, name
+LIMIT 10;
+
+-- 수강료가 비싼 순서대로 정렬
+SELECT course_name, fee
+FROM courses
+WHERE fee >= 80000
+ORDER BY fee DESC, course_name;
+
+SELECT name, email 
+FROM members
+ORDER BY email DESC, name;
+
+SELECT 
+    COUNT(*)            AS 강좌수,
+    MIN(fee)            AS 최저수강료,
+    MAX(fee)            AS 최고수강료,
+    SUM(capacity)       AS 전체정원,
+    ROUND(AVG(fee), 2)  AS 평균수강료
+FROM courses;
+
+-- COUNT(*) vs COUNT(컬럼)
+
+SELECT 
+    COUNT(*)                AS 회원수       ,
+    COUNT(email)            AS 이메일있음   ,
+    COUNT(phone)            AS 전화번호있음 , 
+    COUNT(DISTINCT region)  AS 거주지
+FROM members;
+
+-- 최고 매출 SUM
+
+SELECT 
+    COUNT(*)            AS 신청건수 ,
+    SUM(pay_amount)     AS 매출     ,
+    MAX(pay_amount)     AS 최고매출 
+FROM enrollments
+WHERE enroll_month = '2026-11';
+
+SELECT 
+    enroll_month    AS 신청월   ,
+    COUNT(*)        AS 신청건수 ,
+    SUM(pay_amount) AS 매출
+FROM enrollments
+GROUP BY enroll_month
+ORDER BY enroll_month;
