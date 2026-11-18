@@ -228,3 +228,24 @@ SELECT
 FROM enrollments
 GROUP BY enroll_month
 ORDER BY enroll_month;
+
+SELECT 
+    enroll_month, status, COUNT(*) AS 건수
+FROM enrollments
+GROUP BY enroll_month, status
+ORDER BY enroll_month, status;
+
+-- HAVING
+
+SELECT course_id, COUNT(*) AS 누적신청
+FROM enrollments
+WHERE status <> '취소'
+GROUP BY course_id
+HAVING COUNT(*) >= 18
+ORDER BY 누적신청 DESC, course_id;
+
+-- 출력 : 거주지, 해당거주지회원수 
+-- 조건 : 해당 거주지 회원수 10명 이상인 경우
+
+
+
