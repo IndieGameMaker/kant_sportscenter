@@ -293,7 +293,22 @@ ORDER BY c.course_id;
 
 SELECT AVG(fee) FROM courses;
 
+EXPLAIN(COSTS OFF)
+
 SELECT course_name, fee
 FROM courses
 WHERE fee > (SELECT AVG(fee) FROM courses)
 ORDER BY fee DESC, course_name;
+
+
+-- FROM Sub Query
+
+SELECT member_id, total_paid
+FROM 
+(
+    SELECT member_id, SUM(pay_amount) AS total_paid
+    FROM enrollments
+    GROUP BY member_id
+) AS paid 
+WHERE total_paid >= 400000
+ORDER BY total_paid DESC, member_id;
