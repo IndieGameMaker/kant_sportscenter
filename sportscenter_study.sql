@@ -303,6 +303,7 @@ ORDER BY fee DESC, course_name;
 
 -- FROM Sub Query
 
+-- Inline View
 SELECT 
     paid.member_id  AS 회원번호, 
     m.name          AS 회원명, 
@@ -316,3 +317,12 @@ FROM
 LEFT JOIN members m ON paid.member_id = m.member_id
 WHERE paid.total_paid >= 400000
 ORDER BY paid.total_paid DESC, paid.member_id;
+
+-- Scala Sub QUERY
+
+SELECT 
+    course_name,
+    fee,
+    ROUND((SELECT AVG(fee) FROM courses), 2)        AS 전체평균
+    fee - ROUND((SELECT AVG(fee) FROM courses), 2)  AS 평균과차이
+FROM courses;
