@@ -284,5 +284,16 @@ SELECT
     c.course_name,
     i.name AS 강사
 FROM courses c
-LEFT JOIN instructors i ON c.instructor_id = i.instructor_id
+FULL OUTER JOIN instructors i ON c.instructor_id = i.instructor_id
 ORDER BY c.course_id;
+
+
+
+-- SUB QUERY
+
+SELECT AVG(fee) FROM courses;
+
+SELECT course_name, fee
+FROM courses
+WHERE fee > (SELECT AVG(fee) FROM courses)
+ORDER BY fee DESC, course_name;
