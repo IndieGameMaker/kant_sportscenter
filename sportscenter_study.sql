@@ -289,7 +289,7 @@ ORDER BY c.course_id;
 
 
 
--- SUB QUERY
+--   SUB QUERY
 
 SELECT AVG(fee) FROM courses;
 
