@@ -275,5 +275,14 @@ SELECT
 FROM enrollments e
 LEFT JOIN members m ON e.member_id = m.member_id
 LEFT JOIN courses c ON e.course_id = c.course_id
-WHERE e.course_id = 6 AND e.enroll_month = '2026-11'
+WHERE e.course_id = 1 AND e.enroll_month = '2026-11'
 ORDER BY m.name;
+
+-- 
+SELECT 
+    c.course_id,
+    c.course_name,
+    i.name AS 강사
+FROM courses c
+LEFT JOIN instructors i ON c.instructor_id = i.instructor_id
+ORDER BY c.course_id;
