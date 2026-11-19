@@ -262,9 +262,11 @@ UNION
 SELECT member_id FROM enrollments WHERE course_id = 4 AND enroll_month = '2026-11'
 ORDER BY member_id;
 
-SELECT '강사' AS 구분, name, phone FROM instructors WHERE sport_id = 4
+SELECT '강사' AS 구분, name, '거주지', phone FROM instructors WHERE sport_id = 4
 UNION ALL
-SELECT '회원' AS 구분, name, phone FROM members WHERE region = '영등포구';
+SELECT '회원' AS 구분, name, '거주지', phone FROM members WHERE region = '영등포구'
+UNION ALL
+SELECT ' ' AS 구분, '성명', '마포구', '010-1234-1234' FROM (SELECT 1 FROM members LIMIT 1);
 
 SELECT
     e.member_id,
