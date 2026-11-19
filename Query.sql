@@ -61,3 +61,23 @@ WHERE course_id IN (SELECT course_id
                     GROUP BY course_id
                     HAVING COUNT(*) >= 5)
 RETURNING course_id, course_name, capacity;
+
+-- DELETE
+
+SELECT * FROM lockers;
+
+DELETE FROM lockers
+WHERE member_id = 38
+RETURNING * ;
+
+SELECT m.member_id, m.name, m.join_date
+FROM members m
+WHERE NOT EXISTS (SELECT 1 FROM enrollments e WHERE e.member_id = m.member_id);
+
+DELETE FROM members m
+WHERE NOT EXISTS (SELECT 1 FROM enrollments e WHERE e.member_id = m.member_id)
+RETURNING m.member_id, m.name;
+
+-- DELETE 
+-- TRUNCATE
+-- DROP TABLE
